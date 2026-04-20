@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>EcoLoop - Share Tools With Your Neighbors</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- Hero section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Borrow what you need. <span class="accent">Share what you don't.</span></h1>
+        <p class="hero-sub">
+            EcoLoop is a community marketplace where neighbors rent and lend
+            tools and equipment. Less waste, more savings, a stronger community.
+        </p>
+
+        <form th:action="@{/tools}" method="get" class="hero-search">
+            <input type="text" name="query" placeholder="Search for drills, ladders, lawn mowers..."/>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <div class="hero-actions">
+            <a th:href="@{/tools/new}" class="btn btn-primary">Start sharing now</a>
+            <a th:href="@{/tools}" class="btn btn-outline">Browse tools</a>
+        </div>
+    </div>
+</section>
+
+<!-- How it works -->
+<section class="section" id="how-it-works">
+    <h2>How it works</h2>
+    <div class="grid-3">
+        <div class="card">
+            <div class="step-num">1</div>
+            <h3>Find a tool</h3>
+            <p>Browse tools listed by neighbors in your area and pick what you need.</p>
+        </div>
+        <div class="card">
+            <div class="step-num">2</div>
+            <h3>Book the dates</h3>
+            <p>Choose your rental dates and confirm the booking with the owner.</p>
+        </div>
+        <div class="card">
+            <div class="step-num">3</div>
+            <h3>Share &amp; return</h3>
+            <p>Use the tool, bring it back, and leave a review for the community.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Featured tools -->
+<section class="section section-alt">
+    <h2>Featured tools near you</h2>
+    <div class="grid-3">
+        <div class="tool-card" th:each="tool : ${featuredTools}">
+            <a th:href="@{'/tools/' + ${tool.id}}" class="tool-card-link">
+                <img th:src="${tool.imageUrl}" th:alt="${tool.name}"/>
+                <div class="tool-card-body">
+                    <h3 th:text="${tool.name}">Tool name</h3>
+                    <p class="muted" th:text="${tool.ownerName} + ' - ' + ${tool.location}">Owner</p>
+                    <div class="tool-card-footer">
+                        <span class="price" th:text="${tool.pricePerDay} + ' RON / day'">0 RON</span>
+                        <span class="rating" th:text="'&#9733; ' + ${tool.rating}">0</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div style="text-align:center; margin-top: 2rem;">
+        <a th:href="@{/tools}" class="btn btn-primary">See all tools</a>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

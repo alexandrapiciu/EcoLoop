@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${tool.name} + ' - EcoLoop'">Tool details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<section class="section details">
+    <div class="details-grid">
+        <!-- Left: image + info -->
+        <div>
+            <img class="details-image" th:src="${tool.imageUrl}" th:alt="${tool.name}"/>
+
+            <div class="details-info">
+                <span class="tag" th:text="${tool.category.displayName}">Category</span>
+                <h1 th:text="${tool.name}">Tool name</h1>
+
+                <div class="meta">
+                    <span>&#128100; <strong th:text="${tool.ownerName}">Owner</strong></span>
+                    <span>&#128205; <span th:text="${tool.location}">Location</span></span>
+                    <span>&#9733; <span th:text="${tool.rating}">0</span></span>
+                </div>
+
+                <h3>Description</h3>
+                <p th:text="${tool.description}">Full description</p>
+
+                <h3>Availability</h3>
+                <p th:text="${tool.availability}">Availability info</p>
+
+                <p th:if="${tool.reviewText != null}" class="review">
+                    <strong>Latest review:</strong>
+                    <span th:text="'&quot;' + ${tool.reviewText} + '&quot;'"></span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Right: booking box -->
+        <aside class="booking-box">
+            <div class="price-big" th:text="${tool.pricePerDay} + ' RON / day'">0 RON</div>
+
+            <h3>Suggested available dates</h3>
+            <ul class="dates">
+                <li th:each="d : ${mockAvailableDates}" th:text="${d}">date</li>
+            </ul>
+
+            <form th:action="@{'/tools/' + ${tool.id} + '/book'}" method="post" class="booking-form">
+                <label>
+                    Start date
+                    <input type="date" name="startDate" th:value="${today}" required/>
+                </label>
+                <label>
+                    End date
+                    <input type="date" name="endDate" th:value="${suggestedEnd}" required/>
+                </label>
+                <button type="submit" class="btn btn-primary btn-block">Book now</button>
+            </form>
+
+            <p class="muted small">
+                This is a prototype - no real payment or contact is exchanged yet.
+            </p>
+        </aside>
+    </div>
+
+    <div style="margin-top: 2rem;">
+        <a th:href="@{/tools}" class="link-back">&larr; Back to browse</a>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

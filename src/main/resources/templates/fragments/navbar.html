@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Reusable navbar fragment. Include via: th:replace="~{fragments/navbar :: navbar}" -->
+<nav th:fragment="navbar" class="navbar">
+    <div class="navbar-inner">
+        <a class="brand" th:href="@{/}">
+            <span class="brand-mark">EL</span>
+            <span class="brand-text">EcoLoop</span>
+        </a>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Community</a></li>
+            <li><a th:href="@{/#how-it-works}">How it works</a></li>
+            <li><a th:href="@{/tools}">Browse Tools</a></li>
+            <li><a th:href="@{/history}">My History</a></li>
+            <li><a th:href="@{/#contact}">Contact</a></li>
+        </ul>
+        <a class="btn btn-primary" th:href="@{/tools/new}">List a tool</a>
+    </div>
+</nav>
+
+</body>
+</html>

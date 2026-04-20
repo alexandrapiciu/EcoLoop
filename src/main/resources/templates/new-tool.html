@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List a Tool - EcoLoop</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<section class="section form-section">
+    <h1>List a new tool</h1>
+    <p class="muted">Share a tool with your community. Fields below are saved in memory for this prototype.</p>
+
+    <form th:action="@{/tools/new}" th:object="${tool}" method="post" class="tool-form">
+        <label>
+            Title
+            <input type="text" th:field="*{name}" placeholder="e.g. Cordless drill" required/>
+        </label>
+
+        <label>
+            Description
+            <textarea th:field="*{description}" rows="4"
+                      placeholder="Describe the tool, its condition, and what it's good for..." required></textarea>
+        </label>
+
+        <div class="form-row">
+            <label>
+                Category
+                <select th:field="*{category}" required>
+                    <option value="">-- Select a category --</option>
+                    <option th:each="c : ${categories}"
+                            th:value="${c.name()}"
+                            th:text="${c.displayName}">Cat</option>
+                </select>
+            </label>
+
+            <label>
+                Price per day (RON)
+                <input type="number" th:field="*{pricePerDay}" min="0" step="0.5" required/>
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>
+                Owner name
+                <input type="text" th:field="*{ownerName}" placeholder="Your name" required/>
+            </label>
+
+            <label>
+                Location
+                <input type="text" th:field="*{location}" placeholder="City - Neighborhood" required/>
+            </label>
+        </div>
+
+        <label>
+            Image URL (optional)
+            <input type="url" th:field="*{imageUrl}" placeholder="https://..."/>
+        </label>
+
+        <label>
+            Availability notes
+            <input type="text" th:field="*{availability}" placeholder="e.g. weekends only"/>
+        </label>
+
+        <div class="form-actions">
+            <a th:href="@{/tools}" class="btn btn-outline">Cancel</a>
+            <button type="submit" class="btn btn-primary">Publish listing</button>
+        </div>
+    </form>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

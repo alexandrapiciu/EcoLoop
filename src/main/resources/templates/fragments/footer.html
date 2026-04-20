@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Reusable footer fragment. -->
+<footer th:fragment="footer" class="footer" id="contact">
+    <div class="footer-inner">
+        <div>
+            <h4>EcoLoop</h4>
+            <p>Share more, waste less. Rent tools from your neighbors.</p>
+        </div>
+        <div>
+            <h4>Links</h4>
+            <ul>
+                <li><a th:href="@{/tools}">Browse Tools</a></li>
+                <li><a th:href="@{/tools/new}">List a Tool</a></li>
+                <li><a th:href="@{/history}">Rental History</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@ecoloop.app</p>
+            <p>University project &middot; 2026</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 EcoLoop - Pitic Andrei, Constantinescu Miriam, Piciu Diana - Built with Spring Boot &amp; Thymeleaf</span>
+    </div>
+</footer>
+
+</body>
+</html>

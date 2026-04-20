@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Browse Tools - EcoLoop</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<section class="page-header">
+    <h1>Browse tools</h1>
+    <p>Find the tool you need from trusted neighbors in your area.</p>
+
+    <!-- Search + category filter -->
+    <form th:action="@{/tools}" method="get" class="browse-search">
+        <input type="text" name="query" th:value="${query}" placeholder="Search tools..."/>
+        <select name="category">
+            <option value="">All categories</option>
+            <option th:each="c : ${categories}"
+                    th:value="${c.name()}"
+                    th:text="${c.displayName}"
+                    th:selected="${c.name() == selectedCategory}">Cat</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</section>
+
+<section class="section">
+    <!-- Empty state -->
+    <div th:if="${#lists.isEmpty(tools)}" class="empty">
+        <p>No tools match your search. Try different keywords.</p>
+    </div>
+
+    <!-- Tool grid -->
+    <div class="grid-3">
+        <div class="tool-card" th:each="tool : ${tools}">
+            <a th:href="@{'/tools/' + ${tool.id}}" class="tool-card-link">
+                <img th:src="${tool.imageUrl}" th:alt="${tool.name}"/>
+                <div class="tool-card-body">
+                    <span class="tag" th:text="${tool.category.displayName}">Category</span>
+                    <h3 th:text="${tool.name}">Tool name</h3>
+                    <p class="desc" th:text="${tool.description}">Short description</p>
+                    <p class="muted"
+                       th:text="${tool.ownerName} + ' - ' + ${tool.location}">Owner</p>
+                    <div class="tool-card-footer">
+                        <span class="price" th:text="${tool.pricePerDay} + ' RON / day'">0 RON</span>
+                        <span class="rating" th:text="'&#9733; ' + ${tool.rating}">0</span>
+                    </div>
+                    <p class="review muted" th:if="${tool.reviewText != null}"
+                       th:text="'&quot;' + ${tool.reviewText} + '&quot;'"></p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

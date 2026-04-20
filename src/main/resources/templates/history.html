@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>My Rental History - EcoLoop</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<section class="page-header">
+    <h1>My rental history</h1>
+    <p>Hello, <strong th:text="${user.name}">User</strong> - here are your past and upcoming rentals.</p>
+</section>
+
+<section class="section">
+    <div th:if="${#lists.isEmpty(history)}" class="empty">
+        <p>You haven't rented anything yet.</p>
+        <a th:href="@{/tools}" class="btn btn-primary">Browse tools</a>
+    </div>
+
+    <table class="table" th:if="${!#lists.isEmpty(history)}">
+        <thead>
+        <tr>
+            <th>Tool</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${history}">
+            <td th:text="${entry.toolName}">Tool</td>
+            <td th:text="${entry.startDate}">start</td>
+            <td th:text="${entry.endDate}">end</td>
+            <td>
+                <span class="status-badge"
+                      th:classappend="${'status-' + #strings.toLowerCase(entry.status)}"
+                      th:text="${entry.status}">STATUS</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

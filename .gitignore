@@ -1,0 +1,24 @@
+# Compiled / build output
+target/
+*.class
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.metals/
+.bloop/
+.project
+.classpath
+.settings/
+.claude/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
